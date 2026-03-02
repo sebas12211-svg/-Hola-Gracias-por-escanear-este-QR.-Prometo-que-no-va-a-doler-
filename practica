@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Interactivo</title>
+<style>
+  body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; background: #f7f7f7; }
+  h1 { color: #333; }
+  p { font-size: 1.1em; }
+  button { margin: 5px; padding: 10px 15px; font-size: 1em; cursor: pointer; border-radius: 5px; border: none; }
+  input[type="text"] { padding: 10px; font-size: 1em; width: 100%; margin: 5px 0; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<h1>🦷 Prometo que este QR no va a doler 😅</h1>
+<p>¡Hola! Gracias por escanear este QR. Aquí no hay presión, solo curiosidad y diversión. Responde unas preguntas rápidas y al final hay una sorpresa 😉</p>
+
+<!-- Pregunta 1 -->
+<div id="q1">
+  <p>1️⃣ ¿Te gustan los retos divertidos?</p>
+  <button onclick="nextQ('q2')">✅ Sí</button>
+  <button onclick="nextQ('q2')">🤔 Tal vez</button>
+  <button onclick="nextQ('q1check')">❌ No</button>
+</div>
+
+<div id="q1check" class="hidden">
+  <p>¿Estás seguro?</p>
+  <button onclick="endMsg()">✅ Sí</button>
+  <button onclick="backQ('q1check','q1')">❌ No</button>
+</div>
+
+<!-- Pregunta 2 -->
+<div id="q2" class="hidden">
+  <p>2️⃣ ¿Te parece bien que alguien sea un poco creativo para conocerte mejor?</p>
+  <button onclick="nextQ('q3')">✅ Sí</button>
+  <button onclick="endMsg()">❌ No</button>
+</div>
+
+<!-- Pregunta 3 -->
+<div id="q3" class="hidden">
+  <p>3️⃣ ¿Café, té u otra bebida para levantar el ánimo? ☕🍵🥤</p>
+  <button onclick="nextQ('q4')">☕ Café</button>
+  <button onclick="nextQ('q4')">🍵 Té</button>
+  <input type="text" placeholder="Otra..." onkeydown="if(event.key==='Enter'){nextQ('q4')}">
+</div>
+
+<!-- Pregunta 4 -->
+<div id="q4" class="hidden">
+  <p>4️⃣ ¿Eres más de mañanas o de noches?</p>
+  <button onclick="nextQ('q5')">🌅 Mañanas</button>
+  <button onclick="nextQ('q5')">🌙 Noches</button>
+</div>
+
+<!-- Pregunta 5 -->
+<div id="q5" class="hidden">
+  <p>5️⃣ ¿Cuál lugar en el mundo te gustaría conocer? ✈️</p>
+  <input type="text" placeholder="Escribe tu respuesta..." onkeydown="if(event.key==='Enter'){nextQ('q6')}">
+</div>
+
+<!-- Pregunta 6 -->
+<div id="q6" class="hidden">
+  <p>6️⃣ ¿Cuál es tu comida favorita? 😋</p>
+  <input type="text" placeholder="Escribe tu respuesta..." onkeydown="if(event.key==='Enter'){nextQ('q7')}">
+</div>
+
+<!-- Pregunta 7 -->
+<div id="q7" class="hidden">
+  <p>7️⃣ ¿Cuál es tu color favorito? 🎨</p>
+  <input type="text" placeholder="Escribe tu respuesta..." onkeydown="if(event.key==='Enter'){nextQ('q8')}">
+  <p>O elige un color:</p>
+  <button style="background:red;color:white;" onclick="nextQ('q8')">❤️</button>
+  <button style="background:orange;color:white;" onclick="nextQ('q8')">🧡</button>
+  <button style="background:yellow;color:black;" onclick="nextQ('q8')">💛</button>
+  <button style="background:green;color:white;" onclick="nextQ('q8')">💚</button>
+  <button style="background:blue;color:white;" onclick="nextQ('q8')">💙</button>
+  <button style="background:purple;color:white;" onclick="nextQ('q8')">💜</button>
+</div>
+
+<!-- Pregunta 8 -->
+<div id="q8" class="hidden">
+  <p>8️⃣ Dulce o salado, ¿qué prefieres? 🍫🍿</p>
+  <button onclick="nextQ('q9')">🍫 Dulce</button>
+  <button onclick="nextQ('q9')">🍿 Salado</button>
+</div>
+
+<!-- Pregunta 9 -->
+<div id="q9" class="hidden">
+  <p>9️⃣ Si alguien (yo) te invitara a un café para conocerte mejor, ¿aceptarías? ☕</p>
+  <button onclick="nextQ('q9input')">✅ Sí</button>
+  <button onclick="endMsg()">❌ No</button>
+</div>
+
+<div id="q9input" class="hidden">
+  <p>Escribe tu número de contacto:</p>
+  <input type="text" placeholder="Tu número..." onkeydown="if(event.key==='Enter'){endMsg()}">
+</div>
+
+<div id="end" class="hidden">
+  <p>¡Gracias por tu tiempo! ☕🙂</p>
+</div>
+
+<script>
+function nextQ(id) {
+  document.querySelectorAll('div[id^="q"]').forEach(d => d.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+function backQ(current, target) {
+  document.getElementById(current).classList.add('hidden');
+  document.getElementById(target).classList.remove('hidden');
+}
+function endMsg() {
+  document.querySelectorAll('div[id^="q"]').forEach(d => d.classList.add('hidden'));
+  document.getElementById('end').classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>
